@@ -10,7 +10,7 @@ int i,j;
 int ledmap[16][16];
 CRGB leds[NUM_LEDS];
 
-void print_its(int i, int j){
+void print_its(int i, int j, CRGB color){
     int bukavi[][2] = {{i,j},{i,j+3},{i,j+5},{i,j+6},{i,j+7},{i,j+10},{i,j+11},
                     {i+1,j},{i+1,j+3},{i+1,j+6},{i+1,j+9},{i+1,j+12},
                     {i+2,j},{i+2,j+2},{i+2,j+3},{i+2,j+6},{i+2,j+9},
@@ -19,10 +19,10 @@ void print_its(int i, int j){
         for(int y = 0; y <28; y++){
             pos_i = bukavi[y][0];
             pos_j= bukavi[y][1];
-            if(pos_j  >= 0){
-              if(pos_j <= 15){
+            if(pos_j  >= 0 and pos_j <= 15){
+              if(pos_i >= 0 and pos_i <= 15){
                 pos_map=ledmap[pos_i][pos_j];
-                leds[pos_map]= CRGB::Blue;
+                leds[pos_map]= color;
               }
             }
         }
@@ -52,9 +52,14 @@ void setup() {
 }
 
 void loop(){ 
-  for(int cord_y = -16; cord_y < 16; cord_y++)
-    {print_its(4,cord_y);
-    delay(100);
+  for(int cord_y = -16; cord_y < 16; cord_y++){
+    print_its(4,cord_y, CRGB::Aqua);
+    delay(40);
+    led_clear();
+    }
+  for(int cord_x = -16; cord_x < 16; cord_x++){
+    print_its(cord_x,2, CRGB::Aqua);
+    delay(40);
     led_clear();
     }
 
